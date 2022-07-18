@@ -6,9 +6,7 @@ public class Student {
         FULL_TIME,
         PART_TIME,
         HIBERNATING
-    }
-
-    ;
+    };
 
     private int id;
     private String name;
@@ -26,7 +24,6 @@ public class Student {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.status = status;
-
     }
 
     public Student(String name, String phoneNumber, Status status) {
