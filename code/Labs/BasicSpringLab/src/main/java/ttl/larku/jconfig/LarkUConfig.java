@@ -32,18 +32,18 @@ public class LarkUConfig {
         return new InMemoryStudentDAO();
     }
 
-    //TODO - Dependency Injection needed here.
-    @Bean
-    public CourseService courseService() {
-        CourseService cs = new CourseService();
-        return cs;
-    }
+//    //TODO - Dependency Injection needed here.
+//    @Bean
+//    public CourseService courseService() {
+//        CourseService cs = new CourseService();
+//        return cs;
+//    }
 
     @Bean
-    public ClassService classService() {
+    public ClassService classService(CourseService courseService) {
         ClassService cs = new ClassService();
         cs.setClassDAO(classDAO());
-        cs.setCourseService(courseService());
+        cs.setCourseService(courseService);
 
         return cs;
     }
