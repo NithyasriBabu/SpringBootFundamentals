@@ -13,6 +13,8 @@ public class InMemoryStudentDAO implements BaseDAO<Student> {
     private Map<Integer, Student> students = new HashMap<Integer, Student>();
     private static int nextId = 0;
 
+    public InMemoryStudentDAO() {}
+
     public void update(Student updateObject) {
         if (students.containsKey(updateObject.getId())) {
             students.put(updateObject.getId(), updateObject);
