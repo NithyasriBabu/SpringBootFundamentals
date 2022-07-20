@@ -27,14 +27,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Tag("unit")
 public class StudentRestControllerUnitTest {
 
-    @InjectMocks
-    private StudentRestController controller;
-
+    //Create the mocks
     @Mock
     private StudentService studentService;
 
     @Mock
     private UriCreator uriCreator;
+
+    //Create the controller and then inject with the mocks
+    @InjectMocks
+    private StudentRestController controller;
+
 
 
     List<Student> students = Arrays.asList(

@@ -2,6 +2,8 @@ package ttl.larku.controllers.rest;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,14 +14,21 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 import ttl.larku.domain.Student;
 import ttl.larku.service.StudentService;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/adminrest/student")
@@ -141,7 +150,7 @@ public class StudentRestController {
 //    @PostMapping
 //    public ResponseEntity<?> createStudent(@RequestBody Student s,
 //                                           UriComponentsBuilder ucb, Errors errors) {
-////        validator.validate(s, errors);
+//        validator.validate(s, errors);
 //        if (errors.hasErrors()) {
 //            List<String> errmsgs = errors.getFieldErrors().stream()
 //                    .map(error -> "error:" + error.getField() + ": " + error.getDefaultMessage()
