@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ttl.larku.domain.Student;
 import ttl.larku.domain.Track;
 import ttl.larku.service.StudentService;
@@ -19,6 +20,21 @@ public class SpringBootDemoApplication {
         SpringApplication.run(SpringBootDemoApplication.class, args);
     }
 
+}
+
+@Component
+class StudentServiceRunner implements CommandLineRunner {
+
+    @Autowired
+    private StudentService studentService;
+
+    @Override
+    public void run(String... args) throws Exception {
+//        System.out.println("TrackServiceRunner Called");
+        List<Student> students = studentService.getAllStudents();
+        System.out.println("Students Count: " + students.size());
+        students.forEach(System.out::println);
+    }
 }
 
 @Component

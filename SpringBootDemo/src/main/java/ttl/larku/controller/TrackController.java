@@ -1,15 +1,18 @@
 package ttl.larku.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ttl.larku.domain.Track;
 import ttl.larku.service.TrackService;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/track")
-public class StudentController {
+public class TrackController {
 
     @Autowired
     private TrackService trackService;
@@ -20,20 +23,61 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public Track getTrack(@PathVariable("id") int id) {
+    public ResponseEntity<?> getTrack(@PathVariable("id") int id) {
         Track t = trackService.getTrack(id);
-        return t;
+
+        if (t == null) {
+            return ResponseEntity.status(404).body("No track with id " + id);
+        }
+
+        return ResponseEntity.ok(t);
     }
 
     @GetMapping
-    public List<Track> getAllTracks() {
+    public ResponseEntity<?> getAllTracks() {
         List<Track> tracks = trackService.getAllTracks();
-        return tracks;
+
+        if(tracks.size() == 0) {
+            return ResponseEntity.status(404).body("No tracks Found");
+        }
+
+        return ResponseEntity.ok(tracks);
     }
 
     @PostMapping
-    public Track insertTrack(@RequestBody Track track) {
+    public ResponseEntity<Track> insertTrack(@RequestBody Track track) {
         Track newTrack = trackService.createTrack(track);
-        return newTrack;
+
+        URI newResourse = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newTrack.getId())
+                .toUri();
+
+//        return newTrack;
+        return ResponseEntity.created(newResourse).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTrack(@PathVariable("id") int id) {
+        boolean ifTrackDeleted = trackService.deleteTrack(id);
+
+        if (!ifTrackDeleted) {
+            return ResponseEntity.status(404).body("No track with id " + id);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateTrack(@RequestBody Track track) {
+        boolean ifTrackUpdated = trackService.updateTrack(track);
+
+        if(!ifTrackUpdated) {
+            return ResponseEntity.status(404).body("Not able to update track");
+        }
+        else {
+            return ResponseEntity.noContent().build();
+        }
     }
 }
