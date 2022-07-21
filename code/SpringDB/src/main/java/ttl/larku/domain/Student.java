@@ -72,6 +72,7 @@ public class Student {
      */
     @JacksonXmlElementWrapper(localName = "classes")
     @JacksonXmlProperty(localName = "class")
+
     @ManyToMany (fetch = FetchType.LAZY)
     @Cascade({CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "Student_ScheduledClass",

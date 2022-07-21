@@ -23,11 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 //Populate your DB.  You can either do this or use the schema[-XXX].sql and data[-XXX].sql files
 //and @DirtiesContext as below
-@Sql(scripts = { "/ttl/larku/db/createVersionedDB-h2.sql", "/ttl/larku/db/populateVersionedDB-h2.sql" }, executionPhase=ExecutionPhase.BEFORE_TEST_METHOD)
+//@Sql(scripts = { "/ttl/larku/db/createVersionedDB-h2.sql", "/ttl/larku/db/populateVersionedDB-h2.sql" }, executionPhase=ExecutionPhase.BEFORE_TEST_METHOD)
 
 //Expensive approach
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-@Transactional
+//@Transactional
 public class StudentDaoServiceTest {
 
     private String name1 = "Bloke";
